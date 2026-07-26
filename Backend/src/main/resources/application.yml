@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: backend
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/neondb}
+    username: ${SPRING_DATASOURCE_USERNAME:neondb_owner}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 300000
+      connection-timeout: 20000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+
+  cache:
+    type: caffeine
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
+
+app:
+  db:
+    stored-function-name: ${STORED_FUNCTION_NAME:get_database_schema}
+  cache:
+    cache-name: ${CACHE_NAME:schemaMetadata}
+    cache-key: ${CACHE_KEY:databaseSchema}
+    ttl-hours: ${CACHE_TTL_HOURS:6}
+    maximum-size: ${CACHE_MAX_SIZE:100}
+  startup:
+    fetch-on-startup: ${FETCH_ON_STARTUP:true}
+  notification:
+    enabled: ${NOTIFICATION_ENABLED:true}
+    channel-name: ${NOTIFICATION_CHANNEL:schema_changed}
+    debounce-ms: ${NOTIFICATION_DEBOUNCE_MS:1000}
+    reconnect-interval-ms: ${NOTIFICATION_RECONNECT_MS:5000}
+  gemini:
+    api-key: ${GEMINI_API_KEY:}
+    model: ${GEMINI_MODEL:gemini-3.6-flash}
+    timeout-ms: ${GEMINI_TIMEOUT_MS:45000}
+    instruction-path: ${GEMINI_INSTRUCTION_PATH:classpath:instruction.md}
+
+server:
+  port: ${SERVER_PORT:8080}
