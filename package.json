@@ -1,0 +1,22 @@
+{
+  "name": "hackathon_2026_duskoder_backend",
+  "version": "1.0.0",
+  "description": "[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.18-brightgreen.svg)](https://spring.io/projects/spring-boot) [![Java](https://img.shields.io/badge/Java-11%2B-blue.svg)](https://www.oracle.com/java/) [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12%2B-blue.svg)](https://www.postgresql.org/) [![Google Gemini API](https://img.shields.io/badge/Google%20Gemini-3.6%20Flash-orange.svg)](https://ai.google.dev/) [![Caffeine Cache](https://img.shields.io/badge/Cache-Caffeine%20In--Memory-red.svg)](https://github.com/ben-manes/caffeine)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-prajyot:gprajyot95/hackathon_2026_duskoder_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cloudflare/containers": "^0.3.7"
+  },
+  "devDependencies": {
+    "wrangler": "^4.116.0"
+  }
+}

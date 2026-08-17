@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  "name": "hackathon-2026-duskoder-backend",
+
+  "main": "src/index.js",
+
+  "compatibility_date": "2026-07-31",
+
+  "containers": [
+    {
+      "class_name": "SpringContainer",
+      "image": "./Dockerfile",
+      "max_instances": 3
+    }
+  ],
+
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SPRING_CONTAINER",
+        "class_name": "SpringContainer"
+      }
+    ]
+  },
+
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["SpringContainer"]
+    }
+  ]
+}

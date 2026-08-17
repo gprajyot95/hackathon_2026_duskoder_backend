@@ -52,4 +52,4 @@ app:
     instruction-path: ${GEMINI_INSTRUCTION_PATH:classpath:instruction.md}
 
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${PORT:${SERVER_PORT:8080}}
