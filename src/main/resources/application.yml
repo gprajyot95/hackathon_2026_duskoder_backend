@@ -3,9 +3,9 @@ spring:
     name: backend
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/neondb}
-    username: ${SPRING_DATASOURCE_USERNAME:neondb_owner}
-    password: ${SPRING_DATASOURCE_PASSWORD:}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ep-dawn-violet-azxq73u3.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require}
+    username: ${SPRING_DATASOURCE_USERNAME:#{null}}
+    password: ${SPRING_DATASOURCE_PASSWORD:#{null}}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10

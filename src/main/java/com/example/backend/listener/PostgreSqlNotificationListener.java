@@ -143,13 +143,8 @@ public class PostgreSqlNotificationListener implements SmartLifecycle {
 
     private Connection createDedicatedConnection(String channelName) throws SQLException {
         logger.info("Establishing dedicated physical connection to PostgreSQL for channel LISTEN...");
-        String effectiveUrl = com.example.backend.config.DatabaseConfig.convertToJdbcUrl(dbUrl);
-        Connection conn;
-        if (dbUsername != null && !dbUsername.trim().isEmpty() && dbPassword != null && !dbPassword.trim().isEmpty()) {
-            conn = DriverManager.getConnection(effectiveUrl, dbUsername, dbPassword);
-        } else {
-            conn = DriverManager.getConnection(effectiveUrl);
-        }
+        com.example.backend.config.DatabaseConfig.DbCredentials credentials = com.example.backend.config.DatabaseConfig.resolveCredentials(dbUrl, dbUsername, dbPassword);
+        Connection conn = DriverManager.getConnection(credentials.getJdbcUrl(), credentials.getUsername(), credentials.getPassword());
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("LISTEN " + channelName + ";");
         }
