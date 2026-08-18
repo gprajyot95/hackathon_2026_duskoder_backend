@@ -33,6 +33,9 @@ public class DatabaseConfig {
         String username = rawUsername != null ? rawUsername.trim() : "";
         String password = rawPassword != null ? rawPassword.trim() : "";
 
+        String extractedUser = null;
+        String extractedPass = null;
+
         // Check if credentials are embedded in URL (e.g. postgresql://user:pass@host/db or jdbc:postgresql://user:pass@host/db)
         String cleanUrl = url;
         if (cleanUrl.startsWith("jdbc:")) {
@@ -45,8 +48,8 @@ public class DatabaseConfig {
                 String userInfo = uri.getUserInfo();
                 if (userInfo != null && userInfo.contains(":")) {
                     String[] parts = userInfo.split(":", 2);
-                    if (username.isEmpty()) username = parts[0];
-                    if (password.isEmpty()) password = parts[1];
+                    extractedUser = parts[0];
+                    extractedPass = parts[1];
                 }
 
                 String host = uri.getHost();
@@ -67,6 +70,13 @@ public class DatabaseConfig {
 
         if (!url.startsWith("jdbc:postgresql://") && !url.startsWith("jdbc:")) {
             url = "jdbc:postgresql://" + url;
+        }
+
+        if (username.isEmpty() && extractedUser != null) {
+            username = extractedUser;
+        }
+        if (password.isEmpty() && extractedPass != null) {
+            password = extractedPass;
         }
 
         // Default fallbacks if needed
