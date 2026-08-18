@@ -27,13 +27,13 @@ public class PostgreSqlNotificationListener implements SmartLifecycle {
     private final AppProperties appProperties;
     private final ExecutorService executorService;
 
-    @Value("${spring.datasource.url:jdbc:postgresql://ep-dawn-violet-azxq73u3.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require}")
+    @Value("${spring.datasource.url}")
     private String dbUrl;
 
-    @Value("${spring.datasource.username:neondb_owner}")
+    @Value("${spring.datasource.username:#{null}}")
     private String dbUsername;
 
-    @Value("${spring.datasource.password:npg_8btGxWBV5DCp}")
+    @Value("${spring.datasource.password:#{null}}")
     private String dbPassword;
 
     private final AtomicBoolean running = new AtomicBoolean(false);
@@ -143,7 +143,12 @@ public class PostgreSqlNotificationListener implements SmartLifecycle {
 
     private Connection createDedicatedConnection(String channelName) throws SQLException {
         logger.info("Establishing dedicated physical connection to PostgreSQL for channel LISTEN...");
-        Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+        Connection conn;
+        if (dbUsername != null && !dbUsername.trim().isEmpty() && dbPassword != null && !dbPassword.trim().isEmpty()) {
+            conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+        } else {
+            conn = DriverManager.getConnection(dbUrl);
+        }
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("LISTEN " + channelName + ";");
         }
