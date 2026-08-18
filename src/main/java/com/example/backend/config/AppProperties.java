@@ -13,6 +13,7 @@ public class AppProperties {
     private Notification notification = new Notification();
     private Gemini gemini = new Gemini();
     private Google google = new Google();
+    private Github github = new Github();
 
     public Db getDb() {
         return db;
@@ -60,6 +61,14 @@ public class AppProperties {
 
     public void setGoogle(Google google) {
         this.google = google;
+    }
+
+    public Github getGithub() {
+        return github;
+    }
+
+    public void setGithub(Github github) {
+        this.github = github;
     }
 
     public static class Db {
@@ -204,6 +213,27 @@ public class AppProperties {
     }
 
     public static class Google {
+        private String clientId = "";
+        private String clientSecret = "";
+
+        public String getClientId() {
+            return clientId;
+        }
+
+        public void setClientId(String clientId) {
+            this.clientId = clientId;
+        }
+
+        public String getClientSecret() {
+            return clientSecret;
+        }
+
+        public void setClientSecret(String clientSecret) {
+            this.clientSecret = clientSecret;
+        }
+    }
+
+    public static class Github {
         private String clientId = "";
         private String clientSecret = "";
 
